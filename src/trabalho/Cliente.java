@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class Cliente {
-    
     public static void main(String[] args) {
         Candidato[] candidatos = new Candidato[0]; 
         try{
