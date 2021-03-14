@@ -1,3 +1,7 @@
-nbproject/
+/nbproject/
 build.xml
 manifest.mf
+/build/
+/dist/
+/test/
+temp.txt
