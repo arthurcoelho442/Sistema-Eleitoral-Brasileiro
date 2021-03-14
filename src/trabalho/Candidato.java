@@ -6,7 +6,7 @@ public class Candidato {
     private String situacao;
     private String nome;
     private String nome_urna;
-    private char sexo;
+    private String sexo;
     private String data_nasc;
     private String destino_voto;
     private int numero_partido;
@@ -31,7 +31,7 @@ public class Candidato {
         return nome_urna;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
@@ -46,6 +46,7 @@ public class Candidato {
     public int getNumero_partido() {
         return numero_partido;
     }
+    
 
     public void setNumero(int numero) {
         this.numero = numero;
@@ -67,7 +68,7 @@ public class Candidato {
         this.nome_urna = nome_urna;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
