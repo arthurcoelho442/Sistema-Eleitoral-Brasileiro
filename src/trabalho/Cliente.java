@@ -19,7 +19,7 @@ public class Cliente {
             InputStreamReader entrada = new InputStreamReader(arquivo);
             BufferedReader    br      = new BufferedReader(entrada);
             
-            Candidato[] candidatos = candidatos = Candidatos.iniciaCandidatos(br);
+            Candidato[] candidatos = Candidatos.iniciaCandidatos(br);
             
             //Inicio (Item 1)
             int qtd_Eleitos = Candidatos.numEleitos(candidatos);
@@ -31,22 +31,14 @@ public class Cliente {
             Candidatos.ordenaCandidatos(eleitos, "votos_nominais");
             System.out.print("\nVereadores eleitos:");
             for(int i=0; i<qtd_Eleitos; i++)
-                System.out.printf("\n%d - %s / %s(, %d)"
-                        , i+1
-                        , eleitos[i].getNome()
-                        , eleitos[i].getNome_urna()
-                        , eleitos[i].getVotos_nominais());
+                System.out.printf("\n%d - %s / %s(, %d)", i+1, eleitos[i].getNome(), eleitos[i].getNome_urna(), eleitos[i].getVotos_nominais());
             //Fim(Item2)
             
             //Inicio (Item 3)
             Candidatos.ordenaCandidatos(candidatos, "votos_nominais");
             System.out.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando numero de vagas):");
             for(int i=0; i<qtd_Eleitos; i++)
-                System.out.printf("\n%d - %s / %s(, %d)"
-                        , i+1
-                        , candidatos[i].getNome()
-                        , candidatos[i].getNome_urna()
-                        , candidatos[i].getVotos_nominais());
+                System.out.printf("\n%d - %s / %s(, %d)", i+1, candidatos[i].getNome(), candidatos[i].getNome_urna(), candidatos[i].getVotos_nominais());
             //Fim (Item 3)
             
             //Inicio (Item 4)
@@ -56,11 +48,7 @@ public class Cliente {
                     if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) 
                         cont++;
                 if (cont == 0)
-                    System.out.printf("\n%d - %s / %s(, %d)",
-                            i + 1,
-                            candidatos[i].getNome(),
-                            candidatos[i].getNome_urna(),
-                            candidatos[i].getVotos_nominais());
+                    System.out.printf("\n%d - %s / %s(, %d)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(), candidatos[i].getVotos_nominais());
             }
             //Fim (Item 4)
             
@@ -71,11 +59,7 @@ public class Cliente {
                     if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) 
                         cont++;
                 if (cont != 0)
-                    System.out.printf("\n%d - %s / %s(, %d)",
-                            i + 1,
-                            candidatos[i].getNome(),
-                            candidatos[i].getNome_urna(),
-                            candidatos[i].getVotos_nominais());
+                    System.out.printf("\n%d - %s / %s(, %d)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(), candidatos[i].getVotos_nominais());
             }
             //Fim (Item 5)
             
