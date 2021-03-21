@@ -3,12 +3,12 @@ package trabalho;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Cliente {
     public static void main(String[] args) {
-        Candidato[] candidatos = new Candidato[0]; 
         try{
-            String arq_nome = "aracaju-candidatos.csv";
+            String arq_nome = "vitória-candidatos.csv";
             FileInputStream   arquivo;
             try{
                 arquivo = new FileInputStream("Exemplos_entradas/csv-exemplos/ES/" + arq_nome);
@@ -19,37 +19,72 @@ public class Cliente {
             InputStreamReader entrada = new InputStreamReader(arquivo);
             BufferedReader    br      = new BufferedReader(entrada);
             
-            String linha;
-            for(int i = 1, j; (linha = br.readLine()) != null; i++){
-                Candidato[] aux = new Candidato[i];
-                for(j=0; j < (i-1); j++)
-                    aux[j] = candidatos[j];
-                
-                String[] palavras = linha.split(",");
-                Candidato candidato = new Candidato();
-                
-                try {
-                    candidato.setNumero(Integer.parseInt(palavras[0]));
-                    candidato.setVotos_nominais(Integer.parseInt(palavras[1]));
-                    candidato.setSituacao(palavras[2]);
-                    candidato.setNome(palavras[3]);
-                    candidato.setNome_urna(palavras[4]);
-                    candidato.setSexo(palavras[5]);
-                    candidato.setData_nasc(palavras[6]);
-                    candidato.setDestino_voto(palavras[7]);
-                    candidato.setNumero_partido(Integer.parseInt(palavras[8]));
-                } catch (Exception e) {
-                    i--;
-                    continue;
-                }
-                
-                aux[j] = candidato;
-                candidatos = aux;
+            Candidato[] candidatos = candidatos = Candidatos.iniciaCandidatos(br);
+            
+            //Inicio (Item 1)
+            int qtd_Eleitos = Candidatos.numEleitos(candidatos);
+            System.out.println("Numero de vagas: " + qtd_Eleitos);
+            //Fim (Item 1)
+            
+            //Inicio (Item2)
+            Candidato[] eleitos = Candidatos.candidatosEleitos(candidatos);
+            Candidatos.ordenaCandidatos(eleitos, "votos_nominais");
+            System.out.print("\nVereadores eleitos:");
+            for(int i=0; i<qtd_Eleitos; i++)
+                System.out.printf("\n%d - %s / %s(, %d)"
+                        , i+1
+                        , eleitos[i].getNome()
+                        , eleitos[i].getNome_urna()
+                        , eleitos[i].getVotos_nominais());
+            //Fim(Item2)
+            
+            //Inicio (Item 3)
+            Candidatos.ordenaCandidatos(candidatos, "votos_nominais");
+            System.out.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando numero de vagas):");
+            for(int i=0; i<qtd_Eleitos; i++)
+                System.out.printf("\n%d - %s / %s(, %d)"
+                        , i+1
+                        , candidatos[i].getNome()
+                        , candidatos[i].getNome_urna()
+                        , candidatos[i].getVotos_nominais());
+            //Fim (Item 3)
+            
+            //Inicio (Item 4)
+            System.out.print("\n\nTeriam sido eleitos se a votação dosse majoritaria, e não foram eleitos(com sua posição no ranking de mais votados)");
+            for (int i = 0, cont, j; i < qtd_Eleitos; i++) {
+                for (j = 0, cont =0; j < qtd_Eleitos; j++)
+                    if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) 
+                        cont++;
+                if (cont == 0)
+                    System.out.printf("\n%d - %s / %s(, %d)",
+                            i + 1,
+                            candidatos[i].getNome(),
+                            candidatos[i].getNome_urna(),
+                            candidatos[i].getVotos_nominais());
             }
+            //Fim (Item 4)
+            
+            //Inicio (Item 5)
+            System.out.print("\n\nEleitos, que se beneficiaram do sistema proporcional");
+            for (int i = 0, cont, j; i < qtd_Eleitos; i++) {
+                for (j = 0, cont =0; j < qtd_Eleitos; j++)
+                    if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) 
+                        cont++;
+                if (cont != 0)
+                    System.out.printf("\n%d - %s / %s(, %d)",
+                            i + 1,
+                            candidatos[i].getNome(),
+                            candidatos[i].getNome_urna(),
+                            candidatos[i].getVotos_nominais());
+            }
+            //Fim (Item 5)
+            
+            
             
             br.close();
             entrada.close();
             arquivo.close();
+            
         }
         catch(Exception e){
             System.out.println("Erro ao ler o arquivo");
