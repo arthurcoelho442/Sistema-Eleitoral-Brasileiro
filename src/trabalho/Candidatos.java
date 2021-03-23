@@ -14,9 +14,12 @@ public abstract class Candidatos {
             for (j = 0; j < (i - 1); j++) {
                 aux[j] = candidatos[j];
             }
-
+            
             String[] palavras = linha.split(",");
-            if(palavras[7] != "Válido") continue;
+           /* if(palavras[7] != "Válido") {
+            	i--;
+            	continue;
+            }*/
             Candidato candidato = new Candidato();
 
             try {
@@ -84,14 +87,14 @@ public abstract class Candidatos {
     public static int numEleitos(Candidato[] candidatos){
         int qtd=0;
         for(int i=0; i<candidatos.length; i++)
-            if(candidatos[i].getSituacao().equals("Eleito"))
+            if(candidatos[i].getSituacao())
                 qtd++;
         return qtd;
     }
     public static Candidato[] candidatosEleitos(Candidato[] candidatos){
         Candidato[] eleitos = new Candidato[numEleitos(candidatos)];
         for(int i=0, j=0; i<candidatos.length; i++)
-            if(candidatos[i].getSituacao().equals("Eleito")){
+            if(candidatos[i].getSituacao()){
                 eleitos[j] = candidatos[i];
                 j++;
             }
