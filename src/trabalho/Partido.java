@@ -94,5 +94,38 @@ class Partido {
 		}
 		return null;
 	}
+	public String[] getData_nasc(){
+		int count=0;
+		for(int j=0; j < this.listaC.size(); j++) {
+			if(this.listaC.get(j).getSituacao()) count++;
+		}
+		
+		String[] idades = new String[count];
+		for(int j=0, i=0; j < this.listaC.size(); j++) {
+			if(this.listaC.get(j).getSituacao()) {
+				idades[i] = this.listaC.get(j).getData_nasc();
+				i++;
+			}
+		}
+		return idades;
+	}
+	int getNumero_mulheres() {
+		int count=0;
+		for(int i=0; i<this.listaC.size(); i++) {
+			if(this.listaC.get(i).getSexo().equals("F")) {
+				if(this.listaC.get(i).getSituacao()) count++;
+			}
+		}
+		return count;
+	}
+	int getNumero_homens() {
+		int count=0;
+		for(int i=0; i<this.listaC.size(); i++) {
+			if(this.listaC.get(i).getSexo().equals("M")) {
+				if(this.listaC.get(i).getSituacao()) count++;
+			}
+		}
+		return count;
+	}
 }
 

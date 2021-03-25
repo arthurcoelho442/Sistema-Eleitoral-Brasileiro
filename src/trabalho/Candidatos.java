@@ -16,10 +16,10 @@ public abstract class Candidatos {
             }
             
             String[] palavras = linha.split(",");
-           /* if(palavras[7] != "Válido") {
+           if(!palavras[7].equals("Válido") ) {
             	i--;
             	continue;
-            }*/
+            }
             Candidato candidato = new Candidato();
 
             try {

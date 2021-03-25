@@ -5,7 +5,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Partidos {
@@ -125,5 +130,54 @@ public class Partidos {
 	}
 	public String getNome_urna(int posicao_partido, int numero_candidato) {
 		return this.lista.get(posicao_partido).getNome_urna(numero_candidato);
+	}
+	public int[][] getIdade_por_eleito(String date){ //primeira variavel de age[j][0] é sempre o numero do partido e cada linha é um partido com as informacoes da idade de cada eleito
+		String[][]dataNasc = new String[this.lista.size()][];
+		for(int i=0; i<this.lista.size(); i++) {
+			dataNasc[i] = this.lista.get(i).getData_nasc();	
+		}
+		
+		String pattern = "dd/MM/yyyy"; 
+		DateFormat sdf = new SimpleDateFormat(pattern);
+		int[][] age= new int[this.lista.size()][];
+		Date dataNascInput = null;
+		for(int i=0; i<dataNasc.length; i++) {
+			age[i]=new int[dataNasc[i].length + 1];
+			age[i][0]=this.lista.get(i).getNumero_partido();
+			
+			for(int j=0; j<dataNasc[i].length; j++) {
+				try {
+					dataNascInput= sdf.parse(dataNasc[i][j]);
+				} catch (Exception e) {}
+
+				Calendar dateOfBirth = new GregorianCalendar();
+				dateOfBirth.setTime(dataNascInput);
+				String dataHj = date;
+				Date dataHjInput = null;
+
+				try {
+					dataHjInput= sdf.parse(dataHj);
+				} catch (Exception e) {}
+
+				Calendar dateOfToday = new GregorianCalendar();
+				dateOfToday.setTime(dataHjInput);
+
+				age[i][j+1] = dateOfToday.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+				dateOfBirth.add(Calendar.YEAR, age[i][j+1]);
+
+				if (dateOfToday.before(dateOfBirth)) {
+					age[i][j+1]--;
+				}
+			}
+		}
+		return age;
+	}
+	int[] getestudo_sexo() {
+		int [] informacao = new int[2];
+		for(int i=0; i < this.lista.size(); i++) {
+			informacao[0]+=this.lista.get(i).getNumero_mulheres();
+			informacao[1]+=this.lista.get(i).getNumero_homens();
+		}
+	return informacao;	
 	}
 }
