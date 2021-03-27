@@ -1,0 +1,8 @@
+exemplos/capitais/vitória-candidats.csv (Arquivo ou diretório inexistente)
+
+java.io.FileNotFoundException: exemplos/capitais/vitória-candidats.csv (Arquivo ou diretório inexistente)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at trabalho.Cliente.main(Cliente.java:30)

@@ -18,9 +18,12 @@ public class Candidato {
     public int getVotos_nominais() {
         return votos_nominais;
     }
-
-    public String getSituacao() {
-        return situacao;
+    
+    public boolean getSituacao() {
+    	if(this.situacao.equals("Eleito")) {
+    		return true;
+    	}
+    	else return false;
     }
     
     public String getNome() {
