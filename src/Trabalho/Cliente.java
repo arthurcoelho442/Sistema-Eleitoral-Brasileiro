@@ -289,6 +289,7 @@ public class Cliente {
             }catch (FileNotFoundException ex){
                 System.out.println("Erro ao ler o arquivo");
             }
+            
         }
     }
 }
