@@ -1,4 +1,4 @@
-package trabalho;
+package Trabalho;
 
 public class Candidato {
     private int numero;

@@ -1,12 +1,4 @@
-package trabalho;
-
-/*public class Client {
-	public static void main(String[] args) {
-		String arq= "teste.csv";
-		Partidos teste = new Partidos(arq);
-		Partidos.imprimirPartidos(teste); 
-	}
-}*/
+package Trabalho;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -20,8 +12,8 @@ public class Cliente {
 
     public static void main(String[] args){
         try {
-            String arq_nomeCand = "vitória-candidatos.csv";
-            String arq_nomePart = "vitória-partidos.csv";
+            String arq_nomeCand = args[0];
+            String arq_nomePart = args[1];
             FileInputStream arquivo;
             FileOutputStream arquivo_saida;
             try {
@@ -37,6 +29,7 @@ public class Cliente {
 
             Candidato[] candidatos = Candidatos.iniciaCandidatos(br);
             Partidos partidos = new Partidos(arq_nomePart, candidatos);
+            
             //Inicio (Item 1)
             int qtd_Eleitos = Candidatos.numEleitos(candidatos);
             saida.printf("Numero de vagas: %d", qtd_Eleitos);

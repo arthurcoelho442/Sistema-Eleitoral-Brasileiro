@@ -1,4 +1,4 @@
-package trabalho;
+package Trabalho;
 
 
 import java.io.BufferedReader;

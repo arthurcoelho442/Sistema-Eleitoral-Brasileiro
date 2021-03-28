@@ -1,4 +1,4 @@
-package trabalho;
+package Trabalho;
 
 import java.util.ArrayList;
 import java.util.List;
