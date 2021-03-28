@@ -1,5 +1,6 @@
 package Trabalho;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,9 +18,15 @@ public class Partidos {
 
     private List<Partido> lista = new ArrayList<>();
 
-    Partidos(String Caminho, Candidato[] candidatos) {
-        String[] part;
-        part = Read(Caminho);
+    Partidos(BufferedReader br, Candidato[] candidatos) throws IOException {
+        String texto = "";
+        String linha = br.readLine();
+        for(int i=0; (linha = br.readLine()) != null ; i++)
+            texto = texto + linha + ",";
+        
+        
+        String[] part = texto.split(",");
+        
         if (part.length != 0) // ver caso em que o arquivo eh vazio, nesse caso teremos que try/catch;
         {
             for (int i = 4; i <= part.length; i += 4) {

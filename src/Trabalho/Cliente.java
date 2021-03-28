@@ -14,23 +14,39 @@ public class Cliente {
         try {
             String arq_nomeCand = args[0];
             String arq_nomePart = args[1];
-            FileInputStream arquivo;
-            FileOutputStream arquivo_saida;
-            try {
-                arquivo = new FileInputStream("" + arq_nomeCand);
-            } catch (FileNotFoundException e) {
-                arquivo = new FileInputStream("exemplos/capitais/" + arq_nomeCand);
-            } catch (Exception e) {
-                arquivo = new FileInputStream("exemplos/ES/" + arq_nomeCand);
-            }
+            String data = args[2];
+            FileInputStream arquivo_Cand;
+            FileInputStream arquivo_Part;
+            FileOutputStream arquivo_Saida;
             
-            arquivo_saida = new FileOutputStream("saida.txt");
-            PrintWriter saida = new PrintWriter(arquivo_saida);
-            InputStreamReader entrada = new InputStreamReader(arquivo);
-            BufferedReader br = new BufferedReader(entrada);
-
-            Candidato[] candidatos = Candidatos.iniciaCandidatos(br);
-            Partidos partidos = new Partidos(arq_nomePart, candidatos);
+            try {
+                arquivo_Cand = new FileInputStream("" + arq_nomeCand);
+            }catch(Exception e){
+                try {
+                    arquivo_Cand = new FileInputStream("exemplos/capitais/" + arq_nomeCand);
+                }catch (Exception ex) {
+                    arquivo_Cand = new FileInputStream("exemplos/ES/" + arq_nomeCand);
+                }
+            }
+            InputStreamReader entrada_Cand = new InputStreamReader(arquivo_Cand);
+            BufferedReader br_Cand = new BufferedReader(entrada_Cand);
+            Candidato[] candidatos = Candidatos.iniciaCandidatos(br_Cand);
+            
+            try {
+                arquivo_Part = new FileInputStream("" + arq_nomePart);
+            }catch(Exception e){
+                try {
+                    arquivo_Part = new FileInputStream("exemplos/capitais/" + arq_nomePart);
+                }catch (Exception ex) {
+                    arquivo_Part = new FileInputStream("exemplos/ES/" + arq_nomePart);
+                }
+            }
+            InputStreamReader entrada_Part = new InputStreamReader(arquivo_Part);
+            BufferedReader br_Part = new BufferedReader(entrada_Part);
+            Partidos partidos = new Partidos(br_Part, candidatos);
+            
+            arquivo_Saida = new FileOutputStream("saida.txt");
+            PrintWriter saida = new PrintWriter(arquivo_Saida);
             
             //Inicio (Item 1)
             int qtd_Eleitos = Candidatos.numEleitos(candidatos);
@@ -39,7 +55,7 @@ public class Cliente {
 
             //Inicio (Item2)
             Candidato[] eleitos = Candidatos.candidatosEleitos(candidatos);
-            Candidatos.ordenaCandidatos(eleitos, "votos_nominais");
+            Candidatos.ordenaCandidatos(eleitos, "votos_nominais", data);
             saida.print("\n\nVereadores eleitos:");
             for (int i = 0; i < qtd_Eleitos; i++) {
                 saida.printf("\n%d - %s / %s(, %d)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(), eleitos[i].getVotos_nominais());
@@ -47,7 +63,7 @@ public class Cliente {
             //Fim(Item2)
 
             //Inicio (Item 3)
-            Candidatos.ordenaCandidatos(candidatos, "votos_nominais");
+            Candidatos.ordenaCandidatos(candidatos, "votos_nominais", data);
             saida.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando numero de vagas):");
             for (int i = 0; i < qtd_Eleitos; i++) {
                 saida.printf("\n%d - %s / %s(, %d)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(), candidatos[i].getVotos_nominais());
@@ -273,9 +289,11 @@ public class Cliente {
             saida.println("Total de votos legendas: " + votos_legendas + "(" + String.format("%.2f", porcentagem) + "%)");
 
             saida.close();
-            entrada.close();
-            arquivo.close();
-            arquivo_saida.close();
+            entrada_Cand.close();
+            entrada_Part.close();
+            arquivo_Cand.close();
+            arquivo_Part.close();
+            arquivo_Saida.close();
 
         } catch (Exception e) {
             try{

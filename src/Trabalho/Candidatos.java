@@ -3,6 +3,9 @@ package Trabalho;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 public abstract class Candidatos {
     
@@ -43,7 +46,7 @@ public abstract class Candidatos {
         return candidatos;
     }
     
-    public static void ordenaCandidatos(Candidato[] candidatos, String tipo){
+    public static void ordenaCandidatos(Candidato[] candidatos, String tipo, String data){
         for(int i=0; i<candidatos.length-1; i++){
             boolean estaOrdenado = true;
             for(int j=0; j<candidatos.length-1; j++){
@@ -53,11 +56,13 @@ public abstract class Candidatos {
                         candidatos[j] = candidatos[j + 1];
                         candidatos[j + 1] = aux;
                         estaOrdenado = false;
-                    }else if(Candidatos.comparaNumero(candidatos[j], candidatos[j + 1]) == 0){
-                        Candidato aux = candidatos[j];
-                        candidatos[j] = candidatos[j + 1];
-                        candidatos[j + 1] = aux;
-                        estaOrdenado = false;
+                    }else if (Candidatos.comparaVotos(candidatos[j], candidatos[j + 1]) == 0) {
+                        if (Candidatos.comparaIdade(candidatos[j], candidatos[j + 1])) {
+                            Candidato aux = candidatos[j];
+                            candidatos[j] = candidatos[j + 1];
+                            candidatos[j + 1] = aux;
+                            estaOrdenado = false;
+                        }
                     }
                 }else if (tipo.compareToIgnoreCase("votos_nominais") == 0) {
                     if (Candidatos.comparaVotos(candidatos[j], candidatos[j + 1]) == -1) {
@@ -65,11 +70,13 @@ public abstract class Candidatos {
                         candidatos[j] = candidatos[j + 1];
                         candidatos[j + 1] = aux;
                         estaOrdenado = false;
-                    }else if(Candidatos.comparaNumero(candidatos[j], candidatos[j + 1]) == 0){
-                        Candidato aux = candidatos[j];
-                        candidatos[j] = candidatos[j + 1];
-                        candidatos[j + 1] = aux;
-                        estaOrdenado = false;
+                    }else if (Candidatos.comparaVotos(candidatos[j], candidatos[j + 1]) == 0) {
+                        if (Candidatos.comparaIdade(candidatos[j], candidatos[j + 1])) {
+                            Candidato aux = candidatos[j];
+                            candidatos[j] = candidatos[j + 1];
+                            candidatos[j + 1] = aux;
+                            estaOrdenado = false;
+                        }
                     }
                 }
             }
@@ -103,6 +110,21 @@ public abstract class Candidatos {
             return 1;
         else
             return 0;
+    }
+    public static boolean comparaIdade(Candidato a, Candidato b){
+        DateFormat df;
+        df= DateFormat.getDateInstance(DateFormat.MEDIUM);
+        
+        try {
+            Date data_a = df.parse(a.getData_nasc());
+            Date data_b = df.parse(b.getData_nasc());
+            
+            if(data_a.before(data_b))
+                return true;
+        }catch(Exception e){
+            
+        }
+        return false;
     }
     
     public static int numEleitos(Candidato[] candidatos){
