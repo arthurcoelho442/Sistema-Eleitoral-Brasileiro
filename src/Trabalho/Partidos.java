@@ -1,5 +1,6 @@
 package Trabalho;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,9 +18,15 @@ public class Partidos {
 
     private List<Partido> lista = new ArrayList<>();
 
-    Partidos(String Caminho, Candidato[] candidatos) {
-        String[] part;
-        part = Read(Caminho);
+    Partidos(BufferedReader br, Candidato[] candidatos) throws IOException {
+        String texto = "";
+        String linha = br.readLine();
+        for(int i=0; (linha = br.readLine()) != null ; i++)
+            texto = texto + linha + ",";
+        
+        
+        String[] part = texto.split(",");
+        
         if (part.length != 0) // ver caso em que o arquivo eh vazio, nesse caso teremos que try/catch;
         {
             for (int i = 4; i <= part.length; i += 4) {
@@ -33,62 +40,6 @@ public class Partidos {
 				Partido.imprimirPartdio(part.lista.get(i));
 			}
 		}*/
-    public static String[] Read(String Caminho) {
-        String conteudo = "";
-        try {
-            FileReader arq;
-            try {
-                arq = new FileReader("exemplos/ES/" + Caminho);
-            } catch (Exception e) {
-                arq = new FileReader("exemplos/capitais/" + Caminho);
-            }
-            BufferedReader lerArq = new BufferedReader(arq);
-            String linha = "";
-            try {
-                linha = lerArq.readLine();
-                linha = lerArq.readLine();
-                int i = 0;
-                String test1[] = new String[0];
-                String test2[] = new String[0];
-                while (linha != null) {
-                    i += 4;
-                    test1 = new String[i];
-                    conteudo = linha;
-                    test1[i - 4] = conteudo.split(",")[0];
-                    test1[i - 3] = conteudo.split(",")[1];
-                    test1[i - 2] = conteudo.split(",")[2];
-                    test1[i - 1] = conteudo.split(",")[3];
-                    linha = lerArq.readLine();
-                    for (int k = 0; k < test1.length - 4; k++) {
-                        test1[k] = test2[k];
-                    }
-                    test2 = test1;
-                }
-                arq.close();
-                return test2;
-            } catch (IOException ex) {
-                System.out.println("Erro: nao foi possível ler o arquivo!");
-                return null;
-            }
-        } catch (FileNotFoundException ex) {
-            System.out.println("Erro: Arquivo nao encontrado!");
-            return null;
-        }
-    }
-
-    public static boolean Write(String Caminho, String Texto) {
-        try {
-            FileWriter arq = new FileWriter(Caminho);
-            PrintWriter gravarArq = new PrintWriter(arq);
-            gravarArq.println(Texto);
-            gravarArq.close();
-            return true;
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
     public int getQuantidade_partidos() {
         return this.lista.size();
     }
