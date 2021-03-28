@@ -17,9 +17,11 @@ public class Cliente {
             FileInputStream arquivo;
             FileOutputStream arquivo_saida;
             try {
-                arquivo = new FileInputStream("exemplos/ES/" + arq_nomeCand);
-            } catch (Exception e) {
+                arquivo = new FileInputStream("" + arq_nomeCand);
+            } catch (FileNotFoundException e) {
                 arquivo = new FileInputStream("exemplos/capitais/" + arq_nomeCand);
+            } catch (Exception e) {
+                arquivo = new FileInputStream("exemplos/ES/" + arq_nomeCand);
             }
             
             arquivo_saida = new FileOutputStream("saida.txt");
