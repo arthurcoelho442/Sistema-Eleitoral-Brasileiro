@@ -42,12 +42,18 @@ public abstract class Candidatos {
         }
         return candidatos;
     }
+    
     public static void ordenaCandidatos(Candidato[] candidatos, String tipo){
         for(int i=0; i<candidatos.length-1; i++){
             boolean estaOrdenado = true;
             for(int j=0; j<candidatos.length-1; j++){
                 if (tipo.compareToIgnoreCase("nome") == 0) {
                     if (Candidatos.comparaNome(candidatos[j], candidatos[j + 1]) == 1) {
+                        Candidato aux = candidatos[j];
+                        candidatos[j] = candidatos[j + 1];
+                        candidatos[j + 1] = aux;
+                        estaOrdenado = false;
+                    }else if(Candidatos.comparaNumero(candidatos[j], candidatos[j + 1]) == 0){
                         Candidato aux = candidatos[j];
                         candidatos[j] = candidatos[j + 1];
                         candidatos[j + 1] = aux;
@@ -59,6 +65,11 @@ public abstract class Candidatos {
                         candidatos[j] = candidatos[j + 1];
                         candidatos[j + 1] = aux;
                         estaOrdenado = false;
+                    }else if(Candidatos.comparaNumero(candidatos[j], candidatos[j + 1]) == 0){
+                        Candidato aux = candidatos[j];
+                        candidatos[j] = candidatos[j + 1];
+                        candidatos[j + 1] = aux;
+                        estaOrdenado = false;
                     }
                 }
             }
@@ -66,6 +77,7 @@ public abstract class Candidatos {
                 break;
         }
     }
+    
     public static int comparaNome(Candidato a, Candidato b){
         if(a.getNome().compareToIgnoreCase(b.getNome()) == 0)
             return 0;
@@ -84,6 +96,15 @@ public abstract class Candidatos {
             return 0;
     }
     
+    public static int comparaNumero(Candidato a, Candidato b){
+        if(a.getNumero()< b.getNumero())
+            return -1;
+        if(a.getNumero()> b.getNumero())
+            return 1;
+        else
+            return 0;
+    }
+    
     public static int numEleitos(Candidato[] candidatos){
         int qtd=0;
         for(int i=0; i<candidatos.length; i++)
@@ -91,6 +112,7 @@ public abstract class Candidatos {
                 qtd++;
         return qtd;
     }
+    
     public static Candidato[] candidatosEleitos(Candidato[] candidatos){
         Candidato[] eleitos = new Candidato[numEleitos(candidatos)];
         for(int i=0, j=0; i<candidatos.length; i++)

@@ -1,0 +1,8 @@
+/nbproject/
+/build/
+/dist/
+log.txt
+saida.txt
+/test/
+/bin/
+.gitignore.txt

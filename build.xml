@@ -4,7 +4,7 @@
 		<!-- Propriedades do build. -->
 		<property name="src" location="src" />
 		<property name="bin" location="bin" />
-		<property name="mainClass" value="Trabalho.Client" />
+		<property name="mainClass" value="Trabalho.Cliente" />
 
 		<!-- Inicialização. -->
 		<target name="init" description="Inicializa as estruturas necessárias.">
