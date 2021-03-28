@@ -6,3 +6,5 @@ saida.txt
 /test/
 /bin/
 .gitignore.txt
+.project
+.classpath
