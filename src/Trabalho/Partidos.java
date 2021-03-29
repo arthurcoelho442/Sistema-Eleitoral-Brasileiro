@@ -78,8 +78,11 @@ public class Partidos {
     }
 
     public int getNumero_eleitos(int numero_partido) {
-        return this.lista.get(getPosicao_lista(numero_partido)).getNumero_eleitos();
-    }
+		return this.lista.get(getPosicao_lista(numero_partido)).getNumero_eleitos();
+	}
+	public int getNumero_partidarios(int numero_partido) {
+		return this.lista.get(getPosicao_lista(numero_partido)).getNumero_partidarios();
+	}
 
     public int[] getEstudo_maisVotado(int posicao_partido) {
         return this.lista.get(posicao_partido).getCandidato_mais_votado();
