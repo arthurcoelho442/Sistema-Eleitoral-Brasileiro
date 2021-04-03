@@ -70,9 +70,9 @@ public class Cliente {
 			saida.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
 			for (int i = 0; i < qtd_Eleitos; i++) {
 				if(candidatos[i].getVotos_nominais() > 9)
-					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 				else
-					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 			}
 			//Fim (Item 3)
 
@@ -86,9 +86,9 @@ public class Cliente {
 				}
 				if (cont == 0) {
 					if(candidatos[i].getVotos_nominais() > 9)
-						saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+						saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 					else
-						saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+						saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 				}
 			}
 			//Fim (Item 4)
@@ -105,9 +105,9 @@ public class Cliente {
 					for (j = 0; j < candidatos.length; j++)
 						if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0){
 							if(candidatos[j].getVotos_nominais() > 9)
-								saida.printf("\n%d - %s / %s (%s, %d votos)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[j].getVotos_nominais());
+								saida.printf("\n%d - %s / %s (%s, %d votos)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
 							else
-							saida.printf("\n%d - %s / %s (%s, %d voto)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[j].getVotos_nominais());
+							saida.printf("\n%d - %s / %s (%s, %d voto)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
 						}
 			}
 			//Fim (Item 5)
@@ -173,8 +173,7 @@ public class Cliente {
 			    if( partidos_votos[j][2]> 1) saida.printf( partidos_votos[j][2] + " nominais e ");
                 else saida.printf( partidos_votos[j][2] + " nominal e ");
 
-                if(partidos_votos[j][1] > 1)saida.printf(partidos_votos[j][1] + " de legendas), ");
-                else saida.printf(partidos_votos[j][1] + " de legenda), ");
+                saida.printf(partidos_votos[j][1] + " de legenda), ");
 
 				if(partidos.getNumero_eleitos(partidos_votos[j][0]) > 1) saida.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidatos eleitos\r\n");
                 else saida.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidato eleito\r\n");
@@ -203,7 +202,7 @@ public class Cliente {
 					posicaoAtual++;
 				}
 				else if(valor1[2] == maisVotados[posicaoAtual][2]) {
-					if(partidos.getNumero_partidarios(valor1[0]) >= partidos.getNumero_partidarios(maisVotados[posicaoAtual][0])) {
+					if(partidos.getNumero_partidarios(valor1[0]) <= partidos.getNumero_partidarios(maisVotados[posicaoAtual][0])) {
 						posicaoAtual++;	
 					}
 					else {
@@ -223,7 +222,7 @@ public class Cliente {
 			}
 			int[][] menosVotados = new int[quantidade_partidos][2];
 			for(int j=0; j < quantidade_partidos; j++) {
-				if(partidos.getVoto_legenda(j) == 0) continue;
+				if(partidos.getVoto_legenda(partidos.getPosicao_lista(maisVotados[j][0])) == 0) continue;
 				menosVotados[j]=partidos.getEstudo_menosVotado(partidos.getPosicao_lista(maisVotados[j][0]));
 			}
 			saida.printf("\n\nPrimeiro e ultimo colocados de cada partido:\r\n");
@@ -276,7 +275,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("30 >= Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("30 => Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -287,7 +286,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("40 >= Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("40 => Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -298,7 +297,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("50 >= Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("50 => Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -309,7 +308,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("60 >= Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("60 => Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 			//Fim (Item 8)
 
 			//Inicio (Item 9)
@@ -333,7 +332,7 @@ public class Cliente {
 			porcentagem = (float) votos_nominais * 100 / (float) votos_totais;
 			saida.println("Total de votos nominais: " + votos_nominais + "(" + String.format("%.2f", porcentagem) + "%)");
 			porcentagem = (float) votos_legendas * 100 / (float) votos_totais;
-			saida.println("Total de votos legendas: " + votos_legendas + "(" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("Total de votos de legenda: " + votos_legendas + "(" + String.format("%.2f", porcentagem) + "%)");
 
 			saida.close();
 			entrada_Cand.close();
