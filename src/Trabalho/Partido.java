@@ -25,9 +25,6 @@ class Partido {
         }
     }
 
-    /*static void imprimirPartdio(Partido part) {
-		System.out.println("inf: " + part.nome_partido +"  " + part.numero_partido +"  " + part.sigla_partido +"  " + part.votos_legenda);
-	}*/
     public int getNumero_partido() {
         return this.numero_partido;
     }
