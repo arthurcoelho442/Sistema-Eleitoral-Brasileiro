@@ -114,7 +114,7 @@ public class Cliente {
 
 			//Inicio (Item 6)
 			int test=0;
-			saida.printf("\n\nVotacao dos partidos e numero de candidatos eleitos:\r\n");
+			saida.printf("\n\nVotação dos partidos e número de candidatos eleitos:\r\n");
 			int quantidade_partidos=partidos.getQuantidade_partidos();
 			int[][] partidos_votos = new int[quantidade_partidos][4];
 			for(int j=0; j<quantidade_partidos; j++) {
@@ -202,7 +202,7 @@ public class Cliente {
 					posicaoAtual++;
 				}
 				else if(valor1[2] == maisVotados[posicaoAtual][2]) {
-					if(partidos.getNumero_partidarios(valor1[0]) <= partidos.getNumero_partidarios(maisVotados[posicaoAtual][0])) {
+					if(partidos.getNumero_partidarios(valor1[0]) < partidos.getNumero_partidarios(maisVotados[posicaoAtual][0])) {
 						posicaoAtual++;	
 					}
 					else {
@@ -225,7 +225,7 @@ public class Cliente {
 				if(partidos.getVoto_legenda(partidos.getPosicao_lista(maisVotados[j][0])) == 0) continue;
 				menosVotados[j]=partidos.getEstudo_menosVotado(partidos.getPosicao_lista(maisVotados[j][0]));
 			}
-			saida.printf("\n\nPrimeiro e ultimo colocados de cada partido:\r\n");
+			saida.printf("\nPrimeiro e último colocados de cada partido:\r\n");
 			for(int j=0; j<quantidade_partidos; j++) {
 				if(maisVotados[j][1] == 0) continue;
 				    saida.printf(j+1+ " - "+ partidos.getSigla_partido(maisVotados[j][0]) + 
@@ -243,12 +243,12 @@ public class Cliente {
 				if(menosVotados[j][1]>1)
                     saida.printf( menosVotados[j][1] + " votos)\r\n");
 				else
-                    saida.printf( menosVotados[j][1] + " votos)\r\n");
+                    saida.printf( menosVotados[j][1] + " voto)\r\n");
 			}
 			//Fim (Item 7)
 
 			//Inicio (Item 8)
-			saida.println("\nEleitos, por faixa etária (na data da eleção):");
+			saida.println("\nEleitos, por faixa etária (na data da eleição):");
 			int[][] idades = partidos.getIdade_por_eleito(" 15/11/2020");
 			int numero_total_idades = 0;
 			count = 0;
@@ -275,7 +275,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("30 => Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("30 <= Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -286,7 +286,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("40 => Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("40 <= Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -297,7 +297,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("50 => Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("50 <= Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -308,14 +308,14 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("60 => Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("60 <= Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 			//Fim (Item 8)
 
 			//Inicio (Item 9)
 			int[] quantidade_sexo = partidos.getestudo_sexo();
 			saida.println("\nEleitos, por sexo:");
 			porcentagem = ((float) quantidade_sexo[0] / (float) (quantidade_sexo[0] + (float) quantidade_sexo[1])) * 100;
-			saida.println("Feminino: " + quantidade_sexo[0] + " (" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("Feminino:  " + quantidade_sexo[0] + " (" + String.format("%.2f", porcentagem) + "%)");
 			porcentagem = ((float) quantidade_sexo[1] / (float) (quantidade_sexo[0] + (float) quantidade_sexo[1])) * 100;
 			saida.println("Masculino: " + quantidade_sexo[1] + " (" + String.format("%.2f", porcentagem) + "%)");
 			//Fim(9)
@@ -328,11 +328,11 @@ public class Cliente {
 				votos_legendas += partidos_votos[k][1];
 			}
 			votos_totais += votos_nominais + votos_legendas;
-			saida.println("\nTotal de votos válidos: " + votos_totais);
+			saida.println("\nTotal de votos válidos:    " + votos_totais);
 			porcentagem = (float) votos_nominais * 100 / (float) votos_totais;
-			saida.println("Total de votos nominais: " + votos_nominais + "(" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("Total de votos nominais:   " + votos_nominais + " (" + String.format("%.2f", porcentagem) + "%)");
 			porcentagem = (float) votos_legendas * 100 / (float) votos_totais;
-			saida.println("Total de votos de legenda: " + votos_legendas + "(" + String.format("%.2f", porcentagem) + "%)");
+			saida.println("Total de votos de Legenda: " + votos_legendas + " (" + String.format("%.2f", porcentagem) + "%)\n");
 
 			saida.close();
 			entrada_Cand.close();
