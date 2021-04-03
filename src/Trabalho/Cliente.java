@@ -45,20 +45,12 @@ public class Cliente {
 			BufferedReader br_Part = new BufferedReader(entrada_Part);
 			Partidos partidos = new Partidos(br_Part, candidatos);
 
-<<<<<<< HEAD
 			arquivo_Saida = new FileOutputStream("output.txt");
-=======
-			arquivo_Saida = new FileOutputStream("saida.txt");
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			PrintWriter saida = new PrintWriter(arquivo_Saida);
 
 			//Inicio (Item 1)
 			int qtd_Eleitos = Candidatos.numEleitos(candidatos);
-<<<<<<< HEAD
 			saida.printf("Número de vagas: %d", qtd_Eleitos);
-=======
-			saida.printf("Numero de vagas: %d", qtd_Eleitos);
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			//Fim (Item 1)
 
 			//Inicio (Item2)
@@ -66,40 +58,26 @@ public class Cliente {
 			Candidatos.ordenaCandidatos(eleitos, "votos_nominais", data);
 			saida.print("\n\nVereadores eleitos:");
 			for (int i = 0; i < qtd_Eleitos; i++) {
-<<<<<<< HEAD
 				if(eleitos[i].getVotos_nominais() > 9)
 					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
 				else
 					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
-=======
-				saida.printf("\n%d - %s / %s(%s, %d)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			}
 			//Fim(Item2)
 
 			//Inicio (Item 3)
 			Candidatos.ordenaCandidatos(candidatos, "votos_nominais", data);
-<<<<<<< HEAD
 			saida.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
 			for (int i = 0; i < qtd_Eleitos; i++) {
 				if(candidatos[i].getVotos_nominais() > 9)
 					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 				else
 					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
-=======
-			saida.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando numero de vagas):");
-			for (int i = 0; i < qtd_Eleitos; i++) {
-				saida.printf("\n%d - %s / %s(%s, %d)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			}
 			//Fim (Item 3)
 
 			//Inicio (Item 4)
-<<<<<<< HEAD
 			saida.print("\n\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n(com sua posição no ranking de mais votados)");
-=======
-			saida.print("\n\nTeriam sido eleitos se a votação fosse majoritaria, e não foram eleitos\n(com sua posição no ranking de mais votados)");
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			for (int i = 0, cont, j; i < qtd_Eleitos; i++) {
 				for (j = 0, cont = 0; j < qtd_Eleitos; j++) {
 					if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) {
@@ -107,24 +85,16 @@ public class Cliente {
 					}
 				}
 				if (cont == 0) {
-<<<<<<< HEAD
 					if(candidatos[i].getVotos_nominais() > 9)
 						saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 					else
 						saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
-=======
-					saida.printf("\n%d - %s / %s(%s, %d)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 				}
 			}
 			//Fim (Item 4)
 
 			//Inicio (Item 5)
-<<<<<<< HEAD
 			saida.print("\n\nEleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)");
-=======
-			saida.print("\n\nEleitos, que se beneficiaram do sistema proporcional");
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			for (int i = 0, cont=0, j; i < qtd_Eleitos; i++, cont=0) {
 				for (j = 0; j < qtd_Eleitos; j++)
 					if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0) {
@@ -133,17 +103,12 @@ public class Cliente {
 					}
 				if(cont == 0)
 					for (j = 0; j < candidatos.length; j++)
-<<<<<<< HEAD
 						if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0){
 							if(candidatos[j].getVotos_nominais() > 9)
 								saida.printf("\n%d - %s / %s (%s, %d votos)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[j].getVotos_nominais());
 							else
 							saida.printf("\n%d - %s / %s (%s, %d voto)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[j].getVotos_nominais());
 						}
-=======
-						if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0)
-							saida.printf("\n%d - %s / %s(%s, %d)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), candidatos[j].getVotos_nominais());
->>>>>>> 102b07ab6fefd614707d58bd7682fe2449ecf981
 			}
 			//Fim (Item 5)
 
