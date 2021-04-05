@@ -88,6 +88,11 @@ class Partido {
             if (i[1] > this.listaC.get(j).getVotos_nominais()) {
                 i[1] = this.listaC.get(j).getVotos_nominais();
                 i[0] = this.listaC.get(j).getNumero();
+            }if (i[1] == this.listaC.get(j).getVotos_nominais()) {
+                if(i[0] > this.listaC.get(j).getNumero()){
+                    i[1] = this.listaC.get(j).getVotos_nominais();
+                    i[0] = this.listaC.get(j).getNumero();
+                }
             }
         }
         return i;
