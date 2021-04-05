@@ -52,7 +52,7 @@ class Partido {
     public int getNumero_partidarios() {
 		return this.listaC.size();
 	}
-	public int getNumero_eleitos() {
+    public int getNumero_eleitos() {
 		int i=0;
 		for(int j=0; j < this.listaC.size(); j++) {
 			if(this.listaC.get(j).getSituacao()) {
@@ -64,32 +64,44 @@ class Partido {
 
     public int[] getCandidato_mais_votado() {
         int[] i = new int[3];
-        i[0] = this.numero_partido;
+        Candidato aux1 =  null;
         for (int j = 0; j < this.listaC.size(); j++) {
             if (j == 0) {
-                i[2] = this.listaC.get(j).getVotos_nominais();
-                i[1] = this.listaC.get(j).getNumero();
+                aux1 = this.listaC.get(j);
             }
-            if (i[2] < this.listaC.get(j).getVotos_nominais()) {
-                i[2] = this.listaC.get(j).getVotos_nominais();
-                i[1] = this.listaC.get(j).getNumero();
+            if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==-1) {
+                aux1=this.listaC.get(j);
             }
+            else if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==0) {
+                if(!Candidatos.comparaIdade(aux1, this.listaC.get(j))){
+                    aux1=this.listaC.get(j);
+                }
+            }    
         }
+        i[0] = aux1.getNumero_partido();
+        i[1] = aux1.getNumero();
+        i[2] = aux1.getVotos_nominais();
         return i;
     }
 
     public int[] getCandidato_menos_votado() {
         int[] i = new int[2];
+        Candidato aux1 =  null;
         for (int j = 0; j < this.listaC.size(); j++) {
             if (j == 0) {
-                i[1] = this.listaC.get(j).getVotos_nominais();
-                i[0] = this.listaC.get(j).getNumero();
+                aux1 = this.listaC.get(j);
             }
-            if (i[1] > this.listaC.get(j).getVotos_nominais()) {
-                i[1] = this.listaC.get(j).getVotos_nominais();
-                i[0] = this.listaC.get(j).getNumero();
+            if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==1) {
+                aux1=this.listaC.get(j);
             }
+            else if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==0) {
+                if(Candidatos.comparaIdade(aux1, this.listaC.get(j))){
+                    aux1=this.listaC.get(j);
+                }
+            }    
         }
+        i[0] = aux1.getNumero();
+        i[1] = aux1.getVotos_nominais();
         return i;
     }
 

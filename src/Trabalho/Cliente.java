@@ -145,7 +145,7 @@ public class Cliente {
 					posicaoAtual++;
 				}
 				else if(valor1[3] == partidos_votos[posicaoAtual][3]) {
-					if(partidos.getNumero_partidarios(valor1[0]) >= partidos.getNumero_partidarios(partidos_votos[posicaoAtual][0])) {
+					if(valor1[0] >= partidos_votos[posicaoAtual][0]) {
 						posicaoAtual++;	
 					}
 					else {
@@ -202,7 +202,7 @@ public class Cliente {
 					posicaoAtual++;
 				}
 				else if(valor1[2] == maisVotados[posicaoAtual][2]) {
-					if(partidos.getNumero_partidarios(valor1[0]) < partidos.getNumero_partidarios(maisVotados[posicaoAtual][0])) {
+					if(valor1[0] < maisVotados[posicaoAtual][0]) {
 						posicaoAtual++;	
 					}
 					else {
