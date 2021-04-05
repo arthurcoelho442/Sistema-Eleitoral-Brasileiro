@@ -19,7 +19,7 @@ public abstract class Candidatos {
             }
             
             String[] palavras = linha.split(",");
-           if(!palavras[7].equals("Válido") ) {
+            if(!palavras[7].equals("Válido") ) {
             	i--;
             	continue;
             }
@@ -71,7 +71,7 @@ public abstract class Candidatos {
                         candidatos[j + 1] = aux;
                         estaOrdenado = false;
                     }else if (Candidatos.comparaVotos(candidatos[j], candidatos[j + 1]) == 0) {
-                        if (Candidatos.comparaIdade(candidatos[j], candidatos[j + 1])) {
+                        if (!Candidatos.comparaIdade(candidatos[j], candidatos[j + 1])) {
                             Candidato aux = candidatos[j];
                             candidatos[j] = candidatos[j + 1];
                             candidatos[j + 1] = aux;

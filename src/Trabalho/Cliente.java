@@ -45,39 +45,36 @@ public class Cliente {
 			BufferedReader br_Part = new BufferedReader(entrada_Part);
 			Partidos partidos = new Partidos(br_Part, candidatos);
 
-			arquivo_Saida = new FileOutputStream("output.txt");
-			PrintWriter saida = new PrintWriter(arquivo_Saida);
-
 			//Inicio (Item 1)
 			int qtd_Eleitos = Candidatos.numEleitos(candidatos);
-			saida.printf("Número de vagas: %d", qtd_Eleitos);
+			System.out.printf("Número de vagas: %d", qtd_Eleitos);
 			//Fim (Item 1)
 
 			//Inicio (Item2)
 			Candidato[] eleitos = Candidatos.candidatosEleitos(candidatos);
 			Candidatos.ordenaCandidatos(eleitos, "votos_nominais", data);
-			saida.print("\n\nVereadores eleitos:");
+			System.out.print("\n\nVereadores eleitos:");
 			for (int i = 0; i < qtd_Eleitos; i++) {
 				if(eleitos[i].getVotos_nominais() > 9)
-					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
+					System.out.printf("\n%d - %s / %s (%s, %d votos)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
 				else
-					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
+					System.out.printf("\n%d - %s / %s (%s, %d voto)", i + 1, eleitos[i].getNome(), eleitos[i].getNome_urna(),partidos.getSigla_partido(eleitos[i].getNumero_partido()), eleitos[i].getVotos_nominais());
 			}
 			//Fim(Item2)
 
 			//Inicio (Item 3)
 			Candidatos.ordenaCandidatos(candidatos, "votos_nominais", data);
-			saida.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
+			System.out.print("\n\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
 			for (int i = 0; i < qtd_Eleitos; i++) {
 				if(candidatos[i].getVotos_nominais() > 9)
-					saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+					System.out.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 				else
-					saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+					System.out.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 			}
 			//Fim (Item 3)
 
 			//Inicio (Item 4)
-			saida.print("\n\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n(com sua posição no ranking de mais votados)");
+			System.out.print("\n\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n(com sua posição no ranking de mais votados)");
 			for (int i = 0, cont, j; i < qtd_Eleitos; i++) {
 				for (j = 0, cont = 0; j < qtd_Eleitos; j++) {
 					if (Candidatos.comparaNome(eleitos[j], candidatos[i]) == 0) {
@@ -86,15 +83,15 @@ public class Cliente {
 				}
 				if (cont == 0) {
 					if(candidatos[i].getVotos_nominais() > 9)
-						saida.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+						System.out.printf("\n%d - %s / %s (%s, %d votos)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 					else
-						saida.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
+						System.out.printf("\n%d - %s / %s (%s, %d voto)", i + 1, candidatos[i].getNome(), candidatos[i].getNome_urna(),partidos.getSigla_partido(candidatos[i].getNumero_partido()), candidatos[i].getVotos_nominais());
 				}
 			}
 			//Fim (Item 4)
 
 			//Inicio (Item 5)
-			saida.print("\n\nEleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)");
+			System.out.print("\n\nEleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)");
 			for (int i = 0, cont=0, j; i < qtd_Eleitos; i++, cont=0) {
 				for (j = 0; j < qtd_Eleitos; j++)
 					if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0) {
@@ -105,16 +102,16 @@ public class Cliente {
 					for (j = 0; j < candidatos.length; j++)
 						if (Candidatos.comparaNome(eleitos[i], candidatos[j]) == 0){
 							if(candidatos[j].getVotos_nominais() > 9)
-								saida.printf("\n%d - %s / %s (%s, %d votos)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
+								System.out.printf("\n%d - %s / %s (%s, %d votos)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
 							else
-							saida.printf("\n%d - %s / %s (%s, %d voto)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
+							System.out.printf("\n%d - %s / %s (%s, %d voto)", j + 1, candidatos[j].getNome(), candidatos[j].getNome_urna(),partidos.getSigla_partido(candidatos[j].getNumero_partido()), candidatos[j].getVotos_nominais());
 						}
 			}
 			//Fim (Item 5)
 
 			//Inicio (Item 6)
 			int test=0;
-			saida.printf("\n\nVotação dos partidos e número de candidatos eleitos:\r\n");
+			System.out.printf("\n\nVotação dos partidos e número de candidatos eleitos:\r\n");
 			int quantidade_partidos=partidos.getQuantidade_partidos();
 			int[][] partidos_votos = new int[quantidade_partidos][4];
 			for(int j=0; j<quantidade_partidos; j++) {
@@ -164,19 +161,19 @@ public class Cliente {
 				}
 			}
 			for(int j=0; j<quantidade_partidos; j++){
-				saida.printf( j+1 + " - " + partidos.getSigla_partido(partidos_votos[j][0]) + " - " + partidos_votos[j][0] +
+				System.out.printf( j+1 + " - " + partidos.getSigla_partido(partidos_votos[j][0]) + " - " + partidos_votos[j][0] +
 						", ");
 
-			    if(partidos_votos[j][3]>1 ) saida.printf(partidos_votos[j][3] + " votos (");
-			    else saida.printf(partidos_votos[j][3] + " voto (");
+			    if(partidos_votos[j][3]>1 ) System.out.printf(partidos_votos[j][3] + " votos (");
+			    else System.out.printf(partidos_votos[j][3] + " voto (");
 
-			    if( partidos_votos[j][2]> 1) saida.printf( partidos_votos[j][2] + " nominais e ");
-                else saida.printf( partidos_votos[j][2] + " nominal e ");
+			    if( partidos_votos[j][2]> 1) System.out.printf( partidos_votos[j][2] + " nominais e ");
+                else System.out.printf( partidos_votos[j][2] + " nominal e ");
 
-                saida.printf(partidos_votos[j][1] + " de legenda), ");
+                System.out.printf(partidos_votos[j][1] + " de legenda), ");
 
-				if(partidos.getNumero_eleitos(partidos_votos[j][0]) > 1) saida.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidatos eleitos\r\n");
-                else saida.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidato eleito\r\n");
+				if(partidos.getNumero_eleitos(partidos_votos[j][0]) > 1) System.out.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidatos eleitos\r\n");
+                else System.out.printf(partidos.getNumero_eleitos(partidos_votos[j][0]) + " candidato eleito\r\n");
             }
 			//Fim (Item 6)
 
@@ -225,30 +222,30 @@ public class Cliente {
 				if(partidos.getVoto_legenda(partidos.getPosicao_lista(maisVotados[j][0])) == 0) continue;
 				menosVotados[j]=partidos.getEstudo_menosVotado(partidos.getPosicao_lista(maisVotados[j][0]));
 			}
-			saida.printf("\nPrimeiro e último colocados de cada partido:\r\n");
+			System.out.printf("\nPrimeiro e último colocados de cada partido:\r\n");
 			for(int j=0; j<quantidade_partidos; j++) {
 				if(maisVotados[j][1] == 0) continue;
-				    saida.printf(j+1+ " - "+ partidos.getSigla_partido(maisVotados[j][0]) + 
+				    System.out.printf(j+1+ " - "+ partidos.getSigla_partido(maisVotados[j][0]) + 
 						" - " + maisVotados[j][0] + ", "+ partidos.getNome_urna(partidos.getPosicao_lista(maisVotados[j][0]), maisVotados[j][1]) + 
 						" (" + maisVotados[j][1] + ", ");
 
 				if(maisVotados[j][2]>1)
-                    saida.printf( maisVotados[j][2] + " votos) / ");
+                    System.out.printf( maisVotados[j][2] + " votos) / ");
 				else
-                    saida.printf( maisVotados[j][2] + " voto) / ");
+                    System.out.printf( maisVotados[j][2] + " voto) / ");
 
-                    saida.printf( partidos.getNome_urna(partidos.getPosicao_lista(maisVotados[j][0]), menosVotados[j][0]) +
+                    System.out.printf( partidos.getNome_urna(partidos.getPosicao_lista(maisVotados[j][0]), menosVotados[j][0]) +
 						" (" + menosVotados[j][0] + ", ");	
 
 				if(menosVotados[j][1]>1)
-                    saida.printf( menosVotados[j][1] + " votos)\r\n");
+                    System.out.printf( menosVotados[j][1] + " votos)\r\n");
 				else
-                    saida.printf( menosVotados[j][1] + " voto)\r\n");
+                    System.out.printf( menosVotados[j][1] + " voto)\r\n");
 			}
 			//Fim (Item 7)
 
 			//Inicio (Item 8)
-			saida.println("\nEleitos, por faixa etária (na data da eleição):");
+			System.out.println("\nEleitos, por faixa etária (na data da eleição):");
 			int[][] idades = partidos.getIdade_por_eleito(" 15/11/2020");
 			int numero_total_idades = 0;
 			count = 0;
@@ -264,7 +261,7 @@ public class Cliente {
 				}
 			}
 			float porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("      Idade < 30: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("      Idade < 30: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -275,7 +272,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("30 <= Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("30 <= Idade < 40: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -286,7 +283,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("40 <= Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("40 <= Idade < 50: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -297,7 +294,7 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("50 <= Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("50 <= Idade < 60: " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 
 			count = 0;
 			for (int i = 0; i < idades.length; i++) {
@@ -308,16 +305,16 @@ public class Cliente {
 				}
 			}
 			porcentagem = ((float) count / (float) numero_total_idades) * 100;
-			saida.println("60 <= Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("60 <= Idade     : " + count + " (" + String.format("%.2f", porcentagem) + "%)");
 			//Fim (Item 8)
 
 			//Inicio (Item 9)
 			int[] quantidade_sexo = partidos.getestudo_sexo();
-			saida.println("\nEleitos, por sexo:");
+			System.out.println("\nEleitos, por sexo:");
 			porcentagem = ((float) quantidade_sexo[0] / (float) (quantidade_sexo[0] + (float) quantidade_sexo[1])) * 100;
-			saida.println("Feminino:  " + quantidade_sexo[0] + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("Feminino:  " + quantidade_sexo[0] + " (" + String.format("%.2f", porcentagem) + "%)");
 			porcentagem = ((float) quantidade_sexo[1] / (float) (quantidade_sexo[0] + (float) quantidade_sexo[1])) * 100;
-			saida.println("Masculino: " + quantidade_sexo[1] + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("Masculino: " + quantidade_sexo[1] + " (" + String.format("%.2f", porcentagem) + "%)");
 			//Fim(9)
 			//Inicio(10)
 			int votos_nominais = 0;
@@ -328,32 +325,21 @@ public class Cliente {
 				votos_legendas += partidos_votos[k][1];
 			}
 			votos_totais += votos_nominais + votos_legendas;
-			saida.println("\nTotal de votos válidos:    " + votos_totais);
+			System.out.println("\nTotal de votos válidos:    " + votos_totais);
 			porcentagem = (float) votos_nominais * 100 / (float) votos_totais;
-			saida.println("Total de votos nominais:   " + votos_nominais + " (" + String.format("%.2f", porcentagem) + "%)");
+			System.out.println("Total de votos nominais:   " + votos_nominais + " (" + String.format("%.2f", porcentagem) + "%)");
 			porcentagem = (float) votos_legendas * 100 / (float) votos_totais;
-			saida.println("Total de votos de Legenda: " + votos_legendas + " (" + String.format("%.2f", porcentagem) + "%)\n");
+			System.out.println("Total de votos de Legenda: " + votos_legendas + " (" + String.format("%.2f", porcentagem) + "%)\n");
 
-			saida.close();
 			entrada_Cand.close();
 			entrada_Part.close();
 			arquivo_Cand.close();
 			arquivo_Part.close();
-			arquivo_Saida.close();
 
 		} catch (Exception e) {
-			try{
-				FileOutputStream arquivo = new FileOutputStream("log.txt");
-				PrintWriter saida = new PrintWriter(arquivo);
-
-				System.out.println("Erro ao ler o arquivo");
-				saida.println(e.getMessage() + "\n");
-				e.printStackTrace(saida);
-				saida.close();
-			}catch (FileNotFoundException ex){
-				System.out.println("Erro ao ler o arquivo");
-			}
-
-		}
+                System.out.println("Erro ao ler o arquivo");
+                System.out.println(e.getMessage() + "\n");
+                e.printStackTrace(System.out);
+            }
 	}
 }

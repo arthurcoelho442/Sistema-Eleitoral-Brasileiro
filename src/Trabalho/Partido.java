@@ -91,19 +91,8 @@ class Partido {
             if (j == 0) {
                 aux1 = this.listaC.get(j);
             }
-<<<<<<< HEAD
-            if (i[1] > this.listaC.get(j).getVotos_nominais()) {
-                i[1] = this.listaC.get(j).getVotos_nominais();
-                i[0] = this.listaC.get(j).getNumero();
-            }if (i[1] == this.listaC.get(j).getVotos_nominais()) {
-                if(i[0] > this.listaC.get(j).getNumero()){
-                    i[1] = this.listaC.get(j).getVotos_nominais();
-                    i[0] = this.listaC.get(j).getNumero();
-                }
-=======
             if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==1) {
                 aux1=this.listaC.get(j);
->>>>>>> c25f1c62663270bb6d9046aa04088842e6c7ddef
             }
             else if (Candidatos.comparaVotos(aux1, this.listaC.get(j))==0) {
                 if(Candidatos.comparaIdade(aux1, this.listaC.get(j))){
