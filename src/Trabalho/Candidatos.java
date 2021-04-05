@@ -112,7 +112,31 @@ public abstract class Candidatos {
             return 0;
     }
     public static boolean comparaIdade(Candidato a, Candidato b){
-        DateFormat df;
+        String[] data1 = a.getData_nasc().split("/");
+        String[] data2 = b.getData_nasc().split("/");
+        int[] aux1 = new int[3];
+        int[] aux2 = new int[3];
+        aux1[0] = Integer.parseInt(data1[0]);
+        aux1[1] = Integer.parseInt(data1[1]);
+        aux1[2] = Integer.parseInt(data1[2]);
+        aux2[0] = Integer.parseInt(data2[0]);
+        aux2[1] = Integer.parseInt(data2[1]);
+        aux2[2] = Integer.parseInt(data2[2]);
+        if(aux1[2] < aux2[2])
+            return true;
+        else if(aux1[2] > aux2[2])
+            return false;
+        else
+            if(aux1[1] < aux2[1])
+                return true;
+            else if(aux1[1] > aux2[1])
+                return false;
+            else
+                if(aux1[0] < aux2[0])
+                    return true;
+                else 
+                    return false;
+            /*DateFormat df;
         df= DateFormat.getDateInstance(DateFormat.MEDIUM);
         
         try {
@@ -124,7 +148,7 @@ public abstract class Candidatos {
         }catch(Exception e){
             
         }
-        return false;
+        return false;*/
     }
     
     public static int numEleitos(Candidato[] candidatos){

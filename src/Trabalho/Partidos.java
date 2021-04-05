@@ -35,11 +35,6 @@ public class Partidos {
         }
     }
 
-    /*static void imprimirPartidos(Partidos part){
-			for(int i=0; i< part.lista.size(); i++) {
-				Partido.imprimirPartdio(part.lista.get(i));
-			}
-		}*/
     public int getQuantidade_partidos() {
         return this.lista.size();
     }
@@ -79,9 +74,6 @@ public class Partidos {
 
     public int getNumero_eleitos(int numero_partido) {
 		return this.lista.get(getPosicao_lista(numero_partido)).getNumero_eleitos();
-	}
-	public int getNumero_partidarios(int numero_partido) {
-		return this.lista.get(getPosicao_lista(numero_partido)).getNumero_partidarios();
 	}
 
     public int[] getEstudo_maisVotado(int posicao_partido) {
