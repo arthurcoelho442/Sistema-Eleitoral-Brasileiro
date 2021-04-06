@@ -49,9 +49,6 @@ class Partido {
         return this.listaC.get(i).getVotos_nominais();
     }
 
-    public int getNumero_partidarios() {
-		return this.listaC.size();
-	}
     public int getNumero_eleitos() {
 		int i=0;
 		for(int j=0; j < this.listaC.size(); j++) {

@@ -136,8 +136,9 @@ public abstract class Candidatos {
                     return true;
                 else 
                     return false;
+        
             /*DateFormat df;
-        df= DateFormat.getDateInstance(DateFormat.MEDIUM);
+        df= DateFormat.getDateInstance();
         
         try {
             Date data_a = df.parse(a.getData_nasc());

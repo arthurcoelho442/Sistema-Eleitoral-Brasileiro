@@ -51,10 +51,6 @@ public class Partidos {
         return this.lista.get(posicao_partido).getQuantidade_candidato();
     }
 
-    public int getVoto_candidatos(int posicao_partido) {
-        return this.lista.get(posicao_partido).getVotos_legenda();
-    }
-
     public int getQuantidade_votos_nominai(int posicao_partido, int posicao_candidato) {
         return this.lista.get(posicao_partido).getVoto_nominais_candidato(posicao_candidato);
     }
